@@ -1,0 +1,22 @@
+.wrapper
+  = render '/layouts/sidebar', {icons: @icons}
+  .wrapper-right
+    span class = "wrapper-right-top-text"  = @user.name
+    i class = "wrapper-right-top-icon fas fa-lightbulb"
+
+  wrapper-right-profile
+    i class = "fas fa-user"
+    .wrapper-right-profile-userName = @user.name
+    .wrapper-right-profile-accountId = @user.account
+    .wrapper-right-profile-text ="哲学とプログラミングを愛する26歳現役エンジニア。初心者向けWEBプログラミング情報サイト『ONSEO』運営。本業副業共にプログラミング一筋。海外向けエンジニア教育ビジネスの構想中。1日22時間作業のショートスリーパー。毎日こつこつビジネスとコンテンツを量産中です"
+    .wrapper-right-profile-calendar i class="far fa-calendar-alt" = @user.created_at.strftime("%Y年%m月") ="からTwitterを利用しています"
+    wrapper-right-profile-follows
+      span class="follow" ="113"
+      span class="wrapper-right-profile-follows-ftext" ="フォロー"
+      span class="follower" ="1,014"
+      span class="wrapper-right-profile-follows-ftext" ="フォロワー"
+
+  .wrapper-right-tweets
+    Tweet.where(user_id: @user.id).order(created_at: :desc).each do |t|
+      render '/layouts/tweet', {t: t}
+    end
